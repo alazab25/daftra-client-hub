@@ -240,6 +240,57 @@ export type Database = {
           },
         ]
       }
+      invoices: {
+        Row: {
+          amount: number
+          client_name: string
+          created_at: string | null
+          daftra_invoice_id: string | null
+          due_date: string | null
+          id: string
+          invoice_number: string
+          issue_date: string
+          items: Json | null
+          notes: string | null
+          paid_amount: number
+          status: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          client_name: string
+          created_at?: string | null
+          daftra_invoice_id?: string | null
+          due_date?: string | null
+          id?: string
+          invoice_number: string
+          issue_date: string
+          items?: Json | null
+          notes?: string | null
+          paid_amount?: number
+          status?: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          client_name?: string
+          created_at?: string | null
+          daftra_invoice_id?: string | null
+          due_date?: string | null
+          id?: string
+          invoice_number?: string
+          issue_date?: string
+          items?: Json | null
+          notes?: string | null
+          paid_amount?: number
+          status?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       media_files: {
         Row: {
           created_at: string
@@ -477,6 +528,167 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      payments: {
+        Row: {
+          amount: number
+          created_at: string | null
+          daftra_payment_id: string | null
+          id: string
+          invoice_id: string | null
+          notes: string | null
+          payment_date: string
+          payment_method: string | null
+          reference_number: string | null
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          daftra_payment_id?: string | null
+          id?: string
+          invoice_id?: string | null
+          notes?: string | null
+          payment_date: string
+          payment_method?: string | null
+          reference_number?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          daftra_payment_id?: string | null
+          id?: string
+          invoice_id?: string | null
+          notes?: string | null
+          payment_date?: string
+          payment_method?: string | null
+          reference_number?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          company_name: string | null
+          created_at: string | null
+          daftra_client_id: string | null
+          email: string | null
+          full_name: string | null
+          id: string
+          phone: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          company_name?: string | null
+          created_at?: string | null
+          daftra_client_id?: string | null
+          email?: string | null
+          full_name?: string | null
+          id: string
+          phone?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          company_name?: string | null
+          created_at?: string | null
+          daftra_client_id?: string | null
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      projects: {
+        Row: {
+          budget: number | null
+          created_at: string | null
+          daftra_project_id: string | null
+          description: string | null
+          end_date: string | null
+          id: string
+          name: string
+          progress: number | null
+          start_date: string | null
+          status: string
+          tasks: Json | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          budget?: number | null
+          created_at?: string | null
+          daftra_project_id?: string | null
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          name: string
+          progress?: number | null
+          start_date?: string | null
+          status?: string
+          tasks?: Json | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          budget?: number | null
+          created_at?: string | null
+          daftra_project_id?: string | null
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          name?: string
+          progress?: number | null
+          start_date?: string | null
+          status?: string
+          tasks?: Json | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      sync_logs: {
+        Row: {
+          completed_at: string | null
+          error_message: string | null
+          id: string
+          records_synced: number | null
+          started_at: string | null
+          status: string
+          sync_type: string
+        }
+        Insert: {
+          completed_at?: string | null
+          error_message?: string | null
+          id?: string
+          records_synced?: number | null
+          started_at?: string | null
+          status?: string
+          sync_type: string
+        }
+        Update: {
+          completed_at?: string | null
+          error_message?: string | null
+          id?: string
+          records_synced?: number | null
+          started_at?: string | null
+          status?: string
+          sync_type?: string
+        }
+        Relationships: []
       }
       system_config: {
         Row: {
