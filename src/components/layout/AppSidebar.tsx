@@ -39,6 +39,7 @@ const menuItems = [
     title: "العمليات",
     items: [
       { icon: FolderKanban, label: "المشاريع", path: "/projects" },
+      { icon: FileText, label: "المستخلصات", path: "/documents" },
       { icon: Users, label: "العملاء", path: "/clients" },
     ],
   },
