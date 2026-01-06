@@ -1,1 +1,2 @@
-project_id = "pjsvwtwfychsygxxtevr"
+[functions.daftra-sync]
+verify_jwt = false
