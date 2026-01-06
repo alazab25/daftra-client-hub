@@ -243,51 +243,114 @@ export type Database = {
       invoices: {
         Row: {
           amount: number
+          attachments: Json | null
+          client_address: string | null
+          client_email: string | null
           client_name: string
+          client_phone: string | null
           created_at: string | null
+          currency_code: string | null
           daftra_invoice_id: string | null
+          discount_amount: number
           due_date: string | null
           id: string
           invoice_number: string
+          invoice_type: string | null
+          is_draft: boolean | null
+          is_sent: boolean | null
+          is_viewed: boolean | null
           issue_date: string
           items: Json | null
           notes: string | null
           paid_amount: number
+          paid_date: string | null
+          pdf_url: string | null
+          po_number: string | null
+          sent_date: string | null
+          staff_id: string | null
           status: string
+          subtotal: number
+          synced_at: string | null
+          tax_amount: number
+          terms: string | null
+          total_amount: number
           updated_at: string | null
           user_id: string
+          viewed_at: string | null
         }
         Insert: {
           amount?: number
+          attachments?: Json | null
+          client_address?: string | null
+          client_email?: string | null
           client_name: string
+          client_phone?: string | null
           created_at?: string | null
+          currency_code?: string | null
           daftra_invoice_id?: string | null
+          discount_amount?: number
           due_date?: string | null
           id?: string
           invoice_number: string
+          invoice_type?: string | null
+          is_draft?: boolean | null
+          is_sent?: boolean | null
+          is_viewed?: boolean | null
           issue_date: string
           items?: Json | null
           notes?: string | null
           paid_amount?: number
+          paid_date?: string | null
+          pdf_url?: string | null
+          po_number?: string | null
+          sent_date?: string | null
+          staff_id?: string | null
           status?: string
+          subtotal?: number
+          synced_at?: string | null
+          tax_amount?: number
+          terms?: string | null
+          total_amount?: number
           updated_at?: string | null
           user_id: string
+          viewed_at?: string | null
         }
         Update: {
           amount?: number
+          attachments?: Json | null
+          client_address?: string | null
+          client_email?: string | null
           client_name?: string
+          client_phone?: string | null
           created_at?: string | null
+          currency_code?: string | null
           daftra_invoice_id?: string | null
+          discount_amount?: number
           due_date?: string | null
           id?: string
           invoice_number?: string
+          invoice_type?: string | null
+          is_draft?: boolean | null
+          is_sent?: boolean | null
+          is_viewed?: boolean | null
           issue_date?: string
           items?: Json | null
           notes?: string | null
           paid_amount?: number
+          paid_date?: string | null
+          pdf_url?: string | null
+          po_number?: string | null
+          sent_date?: string | null
+          staff_id?: string | null
           status?: string
+          subtotal?: number
+          synced_at?: string | null
+          tax_amount?: number
+          terms?: string | null
+          total_amount?: number
           updated_at?: string | null
           user_id?: string
+          viewed_at?: string | null
         }
         Relationships: []
       }
@@ -531,39 +594,69 @@ export type Database = {
       }
       payments: {
         Row: {
+          account_number: string | null
           amount: number
+          attachments: Json | null
+          bank_name: string | null
           created_at: string | null
+          currency_code: string | null
           daftra_payment_id: string | null
           id: string
           invoice_id: string | null
           notes: string | null
           payment_date: string
           payment_method: string | null
+          receipt_url: string | null
           reference_number: string | null
+          staff_id: string | null
+          status: string | null
+          synced_at: string | null
+          transaction_id: string | null
+          treasury_id: string | null
           user_id: string
         }
         Insert: {
+          account_number?: string | null
           amount: number
+          attachments?: Json | null
+          bank_name?: string | null
           created_at?: string | null
+          currency_code?: string | null
           daftra_payment_id?: string | null
           id?: string
           invoice_id?: string | null
           notes?: string | null
           payment_date: string
           payment_method?: string | null
+          receipt_url?: string | null
           reference_number?: string | null
+          staff_id?: string | null
+          status?: string | null
+          synced_at?: string | null
+          transaction_id?: string | null
+          treasury_id?: string | null
           user_id: string
         }
         Update: {
+          account_number?: string | null
           amount?: number
+          attachments?: Json | null
+          bank_name?: string | null
           created_at?: string | null
+          currency_code?: string | null
           daftra_payment_id?: string | null
           id?: string
           invoice_id?: string | null
           notes?: string | null
           payment_date?: string
           payment_method?: string | null
+          receipt_url?: string | null
           reference_number?: string | null
+          staff_id?: string | null
+          status?: string | null
+          synced_at?: string | null
+          transaction_id?: string | null
+          treasury_id?: string | null
           user_id?: string
         }
         Relationships: [
@@ -578,83 +671,167 @@ export type Database = {
       }
       profiles: {
         Row: {
+          account_status: string | null
+          address_line1: string | null
+          address_line2: string | null
           avatar_url: string | null
+          business_name: string | null
+          city: string | null
           company_name: string | null
+          country_code: string | null
           created_at: string | null
           daftra_client_id: string | null
           email: string | null
           full_name: string | null
           id: string
+          is_verified: boolean | null
+          last_login_at: string | null
+          notification_email: boolean | null
+          notification_sms: boolean | null
           phone: string | null
+          postal_code: string | null
+          preferred_language: string | null
+          state: string | null
+          tax_number: string | null
           updated_at: string | null
         }
         Insert: {
+          account_status?: string | null
+          address_line1?: string | null
+          address_line2?: string | null
           avatar_url?: string | null
+          business_name?: string | null
+          city?: string | null
           company_name?: string | null
+          country_code?: string | null
           created_at?: string | null
           daftra_client_id?: string | null
           email?: string | null
           full_name?: string | null
           id: string
+          is_verified?: boolean | null
+          last_login_at?: string | null
+          notification_email?: boolean | null
+          notification_sms?: boolean | null
           phone?: string | null
+          postal_code?: string | null
+          preferred_language?: string | null
+          state?: string | null
+          tax_number?: string | null
           updated_at?: string | null
         }
         Update: {
+          account_status?: string | null
+          address_line1?: string | null
+          address_line2?: string | null
           avatar_url?: string | null
+          business_name?: string | null
+          city?: string | null
           company_name?: string | null
+          country_code?: string | null
           created_at?: string | null
           daftra_client_id?: string | null
           email?: string | null
           full_name?: string | null
           id?: string
+          is_verified?: boolean | null
+          last_login_at?: string | null
+          notification_email?: boolean | null
+          notification_sms?: boolean | null
           phone?: string | null
+          postal_code?: string | null
+          preferred_language?: string | null
+          state?: string | null
+          tax_number?: string | null
           updated_at?: string | null
         }
         Relationships: []
       }
       projects: {
         Row: {
+          actual_completion_date: string | null
+          actual_cost: number | null
+          attachments: Json | null
           budget: number | null
           created_at: string | null
+          currency_code: string | null
           daftra_project_id: string | null
+          deliverables: Json | null
           description: string | null
+          documents: Json | null
           end_date: string | null
+          estimated_completion_date: string | null
           id: string
+          internal_notes: string | null
+          milestones: Json | null
           name: string
+          priority: string | null
           progress: number | null
+          project_manager: string | null
+          project_type: string | null
           start_date: string | null
           status: string
+          synced_at: string | null
           tasks: Json | null
+          team_members: Json | null
           updated_at: string | null
           user_id: string
         }
         Insert: {
+          actual_completion_date?: string | null
+          actual_cost?: number | null
+          attachments?: Json | null
           budget?: number | null
           created_at?: string | null
+          currency_code?: string | null
           daftra_project_id?: string | null
+          deliverables?: Json | null
           description?: string | null
+          documents?: Json | null
           end_date?: string | null
+          estimated_completion_date?: string | null
           id?: string
+          internal_notes?: string | null
+          milestones?: Json | null
           name: string
+          priority?: string | null
           progress?: number | null
+          project_manager?: string | null
+          project_type?: string | null
           start_date?: string | null
           status?: string
+          synced_at?: string | null
           tasks?: Json | null
+          team_members?: Json | null
           updated_at?: string | null
           user_id: string
         }
         Update: {
+          actual_completion_date?: string | null
+          actual_cost?: number | null
+          attachments?: Json | null
           budget?: number | null
           created_at?: string | null
+          currency_code?: string | null
           daftra_project_id?: string | null
+          deliverables?: Json | null
           description?: string | null
+          documents?: Json | null
           end_date?: string | null
+          estimated_completion_date?: string | null
           id?: string
+          internal_notes?: string | null
+          milestones?: Json | null
           name?: string
+          priority?: string | null
           progress?: number | null
+          project_manager?: string | null
+          project_type?: string | null
           start_date?: string | null
           status?: string
+          synced_at?: string | null
           tasks?: Json | null
+          team_members?: Json | null
           updated_at?: string | null
           user_id?: string
         }
@@ -662,31 +839,55 @@ export type Database = {
       }
       sync_logs: {
         Row: {
+          admin_user_id: string | null
           completed_at: string | null
+          error_details: Json | null
           error_message: string | null
           id: string
+          records_failed: number | null
+          records_processed: number | null
           records_synced: number | null
+          records_updated: number | null
           started_at: string | null
           status: string
+          sync_details: Json | null
+          sync_method: string | null
           sync_type: string
+          triggered_by: string | null
         }
         Insert: {
+          admin_user_id?: string | null
           completed_at?: string | null
+          error_details?: Json | null
           error_message?: string | null
           id?: string
+          records_failed?: number | null
+          records_processed?: number | null
           records_synced?: number | null
+          records_updated?: number | null
           started_at?: string | null
           status?: string
+          sync_details?: Json | null
+          sync_method?: string | null
           sync_type: string
+          triggered_by?: string | null
         }
         Update: {
+          admin_user_id?: string | null
           completed_at?: string | null
+          error_details?: Json | null
           error_message?: string | null
           id?: string
+          records_failed?: number | null
+          records_processed?: number | null
           records_synced?: number | null
+          records_updated?: number | null
           started_at?: string | null
           status?: string
+          sync_details?: Json | null
+          sync_method?: string | null
           sync_type?: string
+          triggered_by?: string | null
         }
         Relationships: []
       }
