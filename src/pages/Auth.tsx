@@ -297,6 +297,53 @@ const Auth = () => {
                 <span>{isLogin ? 'تسجيل الدخول' : 'إنشاء الحساب'}</span>
               )}
             </Button>
+
+            {isLogin && (
+              <div className="relative my-4">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-background px-2 text-muted-foreground">أو</span>
+                </div>
+              </div>
+            )}
+
+            {isLogin && (
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full h-11"
+                disabled={loading}
+                onClick={async () => {
+                  setLoading(true);
+                  try {
+                    const { error } = await signIn('demo@alazab.com', 'demo123456');
+                    if (error) {
+                      toast({
+                        title: 'خطأ',
+                        description: 'تعذر تسجيل الدخول بالحساب التجريبي',
+                        variant: 'destructive',
+                      });
+                    } else {
+                      toast({
+                        title: 'مرحباً بك!',
+                        description: 'تم تسجيل الدخول بالحساب التجريبي',
+                      });
+                      navigate('/');
+                    }
+                  } finally {
+                    setLoading(false);
+                  }
+                }}
+              >
+                {loading ? (
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                ) : (
+                  <span>🎮 تسجيل دخول تجريبي</span>
+                )}
+              </Button>
+            )}
           </form>
 
           {/* Toggle Login/Signup */}
