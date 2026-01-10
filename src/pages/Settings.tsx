@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { 
   Settings as SettingsIcon, 
   User,
@@ -8,7 +9,9 @@ import {
   Palette,
   Save,
   RefreshCw,
-  MessageSquare
+  MessageSquare,
+  ChevronLeft,
+  FileText
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -31,6 +34,7 @@ import { useAuth } from "@/hooks/useAuth";
 
 const Settings = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const { user } = useAuth();
   const { data: profile, refetch } = useProfile();
   
@@ -283,9 +287,18 @@ const Settings = () => {
                         <p className="text-sm text-muted-foreground">إرسال إشعارات عبر واتساب للمراجعين</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs px-2 py-1 rounded-full bg-success/10 text-success">متصل</span>
-                    </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs px-2 py-1 rounded-full bg-success/10 text-success">متصل</span>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => navigate("/settings/whatsapp-templates")}
+                          className="gap-1"
+                        >
+                          <FileText className="w-3 h-3" />
+                          القوالب
+                        </Button>
+                      </div>
                   </div>
                 </div>
 

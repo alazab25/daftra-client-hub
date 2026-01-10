@@ -58,6 +58,59 @@ export type Database = {
           },
         ]
       }
+      categories: {
+        Row: {
+          created_at: string
+          description_ar: string | null
+          description_en: string | null
+          id: string
+          image_url: string | null
+          is_active: boolean
+          name_ar: string
+          name_en: string
+          parent_id: string | null
+          slug: string
+          sort_order: number | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description_ar?: string | null
+          description_en?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          name_ar: string
+          name_en: string
+          parent_id?: string | null
+          slug: string
+          sort_order?: number | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description_ar?: string | null
+          description_en?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          name_ar?: string
+          name_en?: string
+          parent_id?: string | null
+          slug?: string
+          sort_order?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "categories_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       contacts: {
         Row: {
           contact_type: string
@@ -825,6 +878,181 @@ export type Database = {
             columns: ["invoice_id"]
             isOneToOne: false
             referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      product_variants: {
+        Row: {
+          attributes: Json | null
+          created_at: string
+          id: string
+          image_url: string | null
+          is_active: boolean | null
+          name_ar: string | null
+          name_en: string | null
+          price: number | null
+          product_id: string
+          sku: string | null
+          stock_quantity: number | null
+          updated_at: string
+        }
+        Insert: {
+          attributes?: Json | null
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          name_ar?: string | null
+          name_en?: string | null
+          price?: number | null
+          product_id: string
+          sku?: string | null
+          stock_quantity?: number | null
+          updated_at?: string
+        }
+        Update: {
+          attributes?: Json | null
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          name_ar?: string | null
+          name_en?: string | null
+          price?: number | null
+          product_id?: string
+          sku?: string | null
+          stock_quantity?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_variants_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          category_id: string | null
+          colors: string[] | null
+          cost_price: number | null
+          created_at: string
+          currency: string
+          description_ar: string | null
+          description_en: string | null
+          dimensions: Json | null
+          has_vr_experience: boolean | null
+          id: string
+          images: Json | null
+          is_active: boolean | null
+          is_featured: boolean | null
+          is_new: boolean | null
+          low_stock_threshold: number | null
+          materials: string[] | null
+          meta_description: string | null
+          meta_title: string | null
+          model_3d_url: string | null
+          name_ar: string
+          name_en: string
+          price: number
+          rating_average: number | null
+          rating_count: number | null
+          sale_price: number | null
+          short_description_ar: string | null
+          short_description_en: string | null
+          sku: string | null
+          slug: string
+          specifications: Json | null
+          stock_quantity: number
+          tags: string[] | null
+          updated_at: string
+          video_url: string | null
+          weight: number | null
+        }
+        Insert: {
+          category_id?: string | null
+          colors?: string[] | null
+          cost_price?: number | null
+          created_at?: string
+          currency?: string
+          description_ar?: string | null
+          description_en?: string | null
+          dimensions?: Json | null
+          has_vr_experience?: boolean | null
+          id?: string
+          images?: Json | null
+          is_active?: boolean | null
+          is_featured?: boolean | null
+          is_new?: boolean | null
+          low_stock_threshold?: number | null
+          materials?: string[] | null
+          meta_description?: string | null
+          meta_title?: string | null
+          model_3d_url?: string | null
+          name_ar: string
+          name_en: string
+          price?: number
+          rating_average?: number | null
+          rating_count?: number | null
+          sale_price?: number | null
+          short_description_ar?: string | null
+          short_description_en?: string | null
+          sku?: string | null
+          slug: string
+          specifications?: Json | null
+          stock_quantity?: number
+          tags?: string[] | null
+          updated_at?: string
+          video_url?: string | null
+          weight?: number | null
+        }
+        Update: {
+          category_id?: string | null
+          colors?: string[] | null
+          cost_price?: number | null
+          created_at?: string
+          currency?: string
+          description_ar?: string | null
+          description_en?: string | null
+          dimensions?: Json | null
+          has_vr_experience?: boolean | null
+          id?: string
+          images?: Json | null
+          is_active?: boolean | null
+          is_featured?: boolean | null
+          is_new?: boolean | null
+          low_stock_threshold?: number | null
+          materials?: string[] | null
+          meta_description?: string | null
+          meta_title?: string | null
+          model_3d_url?: string | null
+          name_ar?: string
+          name_en?: string
+          price?: number
+          rating_average?: number | null
+          rating_count?: number | null
+          sale_price?: number | null
+          short_description_ar?: string | null
+          short_description_en?: string | null
+          sku?: string | null
+          slug?: string
+          specifications?: Json | null
+          stock_quantity?: number
+          tags?: string[] | null
+          updated_at?: string
+          video_url?: string | null
+          weight?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "products_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
         ]
