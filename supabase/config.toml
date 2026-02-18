@@ -1,13 +1,1 @@
-project_id = "pjsvwtwfychsygxxtevr"
-
-[functions.daftra-sync]
-verify_jwt = false
-
-[functions.send-notification]
-verify_jwt = false
-
-[functions.send-whatsapp]
-verify_jwt = false
-
-[functions.create-demo-user]
-verify_jwt = false
+project_id = "hvnxhovwbvphynuxlqnj"
