@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
 export interface WhatsAppTemplate {
@@ -21,13 +21,13 @@ export const useWhatsAppTemplates = () => {
   return useQuery({
     queryKey: ["whatsapp-templates"],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from("notification_templates")
         .select("*")
         .order("created_at", { ascending: false });
       
       if (error) throw error;
-      return data as WhatsAppTemplate[];
+      return (data ?? []) as WhatsAppTemplate[];
     },
   });
 };
@@ -36,14 +36,14 @@ export const useActiveTemplates = () => {
   return useQuery({
     queryKey: ["whatsapp-templates", "active"],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from("notification_templates")
         .select("*")
         .eq("is_active", true)
         .order("template_name", { ascending: true });
       
       if (error) throw error;
-      return data as WhatsAppTemplate[];
+      return (data ?? []) as WhatsAppTemplate[];
     },
   });
 };
@@ -52,7 +52,7 @@ export const useTemplateByKey = (templateKey: string) => {
   return useQuery({
     queryKey: ["whatsapp-templates", templateKey],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from("notification_templates")
         .select("*")
         .eq("template_key", templateKey)

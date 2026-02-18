@@ -272,6 +272,157 @@ export type Database = {
           },
         ]
       }
+      document_review_history: {
+        Row: {
+          action: string
+          created_at: string
+          document_id: string
+          id: string
+          notes: string | null
+          reviewer_id: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          document_id: string
+          id?: string
+          notes?: string | null
+          reviewer_id?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          document_id?: string
+          id?: string
+          notes?: string | null
+          reviewer_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_review_history_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "document_review_history_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "document_reviewers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      document_reviewers: {
+        Row: {
+          created_at: string
+          department: string | null
+          document_id: string
+          id: string
+          notes: string | null
+          review_order: number
+          reviewed_at: string | null
+          reviewer_email: string | null
+          reviewer_name: string
+          reviewer_phone: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          department?: string | null
+          document_id: string
+          id?: string
+          notes?: string | null
+          review_order?: number
+          reviewed_at?: string | null
+          reviewer_email?: string | null
+          reviewer_name: string
+          reviewer_phone?: string | null
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          department?: string | null
+          document_id?: string
+          id?: string
+          notes?: string | null
+          review_order?: number
+          reviewed_at?: string | null
+          reviewer_email?: string | null
+          reviewer_name?: string
+          reviewer_phone?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_reviewers_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      documents: {
+        Row: {
+          approved_at: string | null
+          created_at: string
+          current_reviewer_order: number
+          description: string | null
+          file_urls: string[]
+          id: string
+          project_id: string | null
+          sender_name: string | null
+          status: string
+          submitted_at: string | null
+          title: string
+          total_reviewers: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          approved_at?: string | null
+          created_at?: string
+          current_reviewer_order?: number
+          description?: string | null
+          file_urls?: string[]
+          id?: string
+          project_id?: string | null
+          sender_name?: string | null
+          status?: string
+          submitted_at?: string | null
+          title: string
+          total_reviewers?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          approved_at?: string | null
+          created_at?: string
+          current_reviewer_order?: number
+          description?: string | null
+          file_urls?: string[]
+          id?: string
+          project_id?: string | null
+          sender_name?: string | null
+          status?: string
+          submitted_at?: string | null
+          title?: string
+          total_reviewers?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "documents_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       expense_categories: {
         Row: {
           description: string | null
@@ -898,6 +1049,54 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      notification_templates: {
+        Row: {
+          body_text: string
+          buttons: Json
+          created_at: string
+          event_type: string | null
+          footer_text: string | null
+          header_text: string | null
+          id: string
+          is_active: boolean
+          language: string | null
+          template_key: string
+          template_name: string
+          updated_at: string
+          variables: Json
+        }
+        Insert: {
+          body_text: string
+          buttons?: Json
+          created_at?: string
+          event_type?: string | null
+          footer_text?: string | null
+          header_text?: string | null
+          id?: string
+          is_active?: boolean
+          language?: string | null
+          template_key: string
+          template_name: string
+          updated_at?: string
+          variables?: Json
+        }
+        Update: {
+          body_text?: string
+          buttons?: Json
+          created_at?: string
+          event_type?: string | null
+          footer_text?: string | null
+          header_text?: string | null
+          id?: string
+          is_active?: boolean
+          language?: string | null
+          template_key?: string
+          template_name?: string
+          updated_at?: string
+          variables?: Json
+        }
+        Relationships: []
       }
       notifications: {
         Row: {

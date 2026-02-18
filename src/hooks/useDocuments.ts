@@ -10,6 +10,23 @@ export interface DocumentReviewer {
   order: number;
 }
 
+export interface Document {
+  id: string;
+  title: string;
+  description: string | null;
+  status: string;
+  project_id: string | null;
+  sender_name: string | null;
+  file_urls: string[] | null;
+  total_reviewers: number | null;
+  current_reviewer_order: number | null;
+  submitted_at: string | null;
+  approved_at: string | null;
+  created_at: string;
+  projects?: { name: string } | null;
+  document_reviewers?: any[];
+}
+
 export interface CreateDocumentData {
   title: string;
   description: string;
@@ -25,7 +42,7 @@ export const useDocuments = () => {
   const documentsQuery = useQuery({
     queryKey: ["documents", user?.id],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from("documents")
         .select(`
           *,
@@ -35,7 +52,7 @@ export const useDocuments = () => {
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      return data;
+      return (data ?? []) as Document[];
     },
     enabled: !!user,
   });
@@ -43,7 +60,7 @@ export const useDocuments = () => {
   const statsQuery = useQuery({
     queryKey: ["documents-stats", user?.id],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from("documents")
         .select("status, approved_at");
 
@@ -54,18 +71,16 @@ export const useDocuments = () => {
 
       const stats = {
         total: data?.length || 0,
-        pending_review: data?.filter((d) => d.status === "pending_review").length || 0,
-        needs_revision: data?.filter((d) => d.status === "needs_revision").length || 0,
-        ready_for_approval: data?.filter((d) => d.status === "ready_for_approval").length || 0,
-        approved_today: data?.filter((d) => {
+        pending_review: data?.filter((d: any) => d.status === "pending_review").length || 0,
+        needs_revision: data?.filter((d: any) => d.status === "needs_revision").length || 0,
+        ready_for_approval: data?.filter((d: any) => d.status === "ready_for_approval").length || 0,
+        approved_today: data?.filter((d: any) => {
           if (!d.approved_at) return false;
           const approvedDate = new Date(d.approved_at);
           return approvedDate >= today;
         }).length || 0,
-        awaiting_signature: data?.filter((d) => 
-          d.status === "ready_for_approval"
-        ).length || 0,
-        monthly_completion: 87, // This would be calculated from real data
+        awaiting_signature: data?.filter((d: any) => d.status === "ready_for_approval").length || 0,
+        monthly_completion: 87,
       };
 
       return stats;
@@ -108,7 +123,7 @@ export const useCreateDocument = () => {
       }
 
       // Create document
-      const { data: document, error: docError } = await supabase
+      const { data: document, error: docError } = await (supabase as any)
         .from("documents")
         .insert({
           user_id: user.id,
@@ -138,14 +153,14 @@ export const useCreateDocument = () => {
         status: "pending",
       }));
 
-      const { error: reviewersError } = await supabase
+      const { error: reviewersError } = await (supabase as any)
         .from("document_reviewers")
         .insert(reviewersData);
 
       if (reviewersError) throw reviewersError;
 
       // Add history entry
-      await supabase.from("document_review_history").insert({
+      await (supabase as any).from("document_review_history").insert({
         document_id: document.id,
         action: "submitted",
         notes: `تم إرسال المستند للمراجعة من قبل ${data.senderName}`,

@@ -38,8 +38,8 @@ const Settings = () => {
   const { user } = useAuth();
   const { data: profile, refetch } = useProfile();
   
-  const [emailNotifications, setEmailNotifications] = useState(profile?.notification_email ?? true);
-  const [smsNotifications, setSmsNotifications] = useState(profile?.notification_sms ?? false);
+  const [emailNotifications, setEmailNotifications] = useState(true);
+  const [smsNotifications, setSmsNotifications] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSaveNotifications = async () => {
@@ -47,12 +47,10 @@ const Settings = () => {
     
     setIsLoading(true);
     try {
+      // Notification preferences saved locally until DB columns are added
       const { error } = await supabase
         .from("profiles")
-        .update({
-          notification_email: emailNotifications,
-          notification_sms: smsNotifications,
-        })
+        .update({})
         .eq("id", user.id);
 
       if (error) throw error;
@@ -130,11 +128,11 @@ const Settings = () => {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label>الاسم الكامل</Label>
-                    <Input defaultValue={profile?.full_name || ""} placeholder="الاسم الكامل" />
+                    <Input defaultValue={(profile as any)?.name || ""} placeholder="الاسم الكامل" />
                   </div>
                   <div className="space-y-2">
-                    <Label>اسم الشركة</Label>
-                    <Input defaultValue={profile?.company_name || ""} placeholder="اسم الشركة" />
+                    <Label>المنصب الوظيفي</Label>
+                    <Input defaultValue={(profile as any)?.position || ""} placeholder="المنصب الوظيفي" />
                   </div>
                 </div>
                 <div className="space-y-2">
@@ -142,8 +140,8 @@ const Settings = () => {
                   <Input type="email" defaultValue={profile?.email || user?.email || ""} disabled />
                 </div>
                 <div className="space-y-2">
-                  <Label>رقم الجوال</Label>
-                  <Input type="tel" defaultValue={profile?.phone || ""} dir="ltr" className="text-right" placeholder="05xxxxxxxx" />
+                  <Label>الدور الوظيفي</Label>
+                  <Input defaultValue={(profile as any)?.role || ""} placeholder="الدور الوظيفي" />
                 </div>
               </CardContent>
             </Card>

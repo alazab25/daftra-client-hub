@@ -106,26 +106,21 @@ const WhatsAppTemplates = () => {
   const { data: templates = [], isLoading } = useQuery({
     queryKey: ["whatsapp-templates"],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from("notification_templates")
         .select("*")
         .order("created_at", { ascending: false });
       
       if (error) throw error;
-      return data as Template[];
+      return (data ?? []) as Template[];
     },
   });
 
   // Create/Update template mutation
   const saveTemplateMutation = useMutation({
     mutationFn: async (data: Partial<Template>) => {
-      const validEventTypes = ["invoice_issued", "order_status_changed", "technician_assigned", "payment_confirmed", "appointment_scheduled"] as const;
-      const eventType = data.event_type && validEventTypes.includes(data.event_type as any) 
-        ? (data.event_type as typeof validEventTypes[number]) 
-        : null;
-
       if (editingTemplate) {
-        const { error } = await supabase
+        const { error } = await (supabase as any)
           .from("notification_templates")
           .update({
             template_key: data.template_key,
@@ -134,7 +129,7 @@ const WhatsAppTemplates = () => {
             body_text: data.body_text,
             footer_text: data.footer_text || null,
             language: data.language,
-            event_type: eventType,
+            event_type: data.event_type || null,
             variables: data.variables || [],
             updated_at: new Date().toISOString(),
           })
@@ -142,7 +137,7 @@ const WhatsAppTemplates = () => {
         
         if (error) throw error;
       } else {
-        const { error } = await supabase
+        const { error } = await (supabase as any)
           .from("notification_templates")
           .insert([{
             template_key: data.template_key!,
@@ -151,7 +146,7 @@ const WhatsAppTemplates = () => {
             body_text: data.body_text!,
             footer_text: data.footer_text || null,
             language: data.language,
-            event_type: eventType,
+            event_type: data.event_type || null,
             variables: data.variables || [],
             buttons: [],
             is_active: true,
@@ -183,7 +178,7 @@ const WhatsAppTemplates = () => {
   // Delete template mutation
   const deleteTemplateMutation = useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from("notification_templates")
         .delete()
         .eq("id", id);
@@ -209,7 +204,7 @@ const WhatsAppTemplates = () => {
   // Toggle template status
   const toggleStatusMutation = useMutation({
     mutationFn: async ({ id, is_active }: { id: string; is_active: boolean }) => {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from("notification_templates")
         .update({ is_active, updated_at: new Date().toISOString() })
         .eq("id", id);
