@@ -1,4 +1,5 @@
 import { Bell, Search, Menu, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -11,6 +12,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { useAuth } from "@/hooks/useAuth";
+import { useProfile } from "@/hooks/useData";
 
 interface DashboardHeaderProps {
   onToggleSidebar: () => void;
@@ -18,6 +21,18 @@ interface DashboardHeaderProps {
 }
 
 const DashboardHeader = ({ onToggleSidebar, sidebarCollapsed }: DashboardHeaderProps) => {
+  const navigate = useNavigate();
+  const { signOut, user } = useAuth();
+  const { data: profile } = useProfile();
+
+  const displayName = profile?.name || user?.email?.split("@")[0] || "المستخدم";
+  const initials = displayName.slice(0, 2);
+
+  const handleLogout = async () => {
+    await signOut();
+    navigate("/auth", { replace: true });
+  };
+
   return (
     <header className="h-16 bg-card border-b border-border px-6 flex items-center justify-between sticky top-0 z-40">
       {/* Right Side - Search */}
@@ -67,13 +82,11 @@ const DashboardHeader = ({ onToggleSidebar, sidebarCollapsed }: DashboardHeaderP
               <span className="text-sm text-muted-foreground">تم تحديث حالة مشروع تطوير الموقع</span>
               <span className="text-xs text-muted-foreground">منذ ساعة</span>
             </DropdownMenuItem>
-            <DropdownMenuItem className="flex flex-col items-start gap-1 py-3">
-              <span className="font-medium">دفعة مستلمة</span>
-              <span className="text-sm text-muted-foreground">تم استلام دفعة بقيمة 2,500 ر.س</span>
-              <span className="text-xs text-muted-foreground">منذ 3 ساعات</span>
-            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-center text-primary">
+            <DropdownMenuItem 
+              className="text-center text-primary"
+              onClick={() => navigate("/notifications")}
+            >
               عرض جميع الإشعارات
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -84,13 +97,13 @@ const DashboardHeader = ({ onToggleSidebar, sidebarCollapsed }: DashboardHeaderP
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="flex items-center gap-3 px-2">
               <div className="text-left hidden sm:block">
-                <p className="text-sm font-medium">محمد أحمد</p>
-                <p className="text-xs text-muted-foreground">عميل مميز</p>
+                <p className="text-sm font-medium">{displayName}</p>
+                <p className="text-xs text-muted-foreground">{profile?.role || "مستخدم"}</p>
               </div>
               <Avatar className="w-9 h-9">
                 <AvatarImage src="" />
                 <AvatarFallback className="gradient-primary text-primary-foreground text-sm">
-                  م أ
+                  {initials}
                 </AvatarFallback>
               </Avatar>
             </Button>
@@ -98,13 +111,15 @@ const DashboardHeader = ({ onToggleSidebar, sidebarCollapsed }: DashboardHeaderP
           <DropdownMenuContent align="end" className="w-56">
             <DropdownMenuLabel>حسابي</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => navigate("/settings")}>
               <User className="w-4 h-4 ml-2" />
               الملف الشخصي
             </DropdownMenuItem>
-            <DropdownMenuItem>الإعدادات</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => navigate("/settings")}>
+              الإعدادات
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-destructive">
+            <DropdownMenuItem className="text-destructive" onClick={handleLogout}>
               تسجيل الخروج
             </DropdownMenuItem>
           </DropdownMenuContent>

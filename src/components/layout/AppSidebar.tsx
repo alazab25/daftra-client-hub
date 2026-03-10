@@ -168,6 +168,7 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
       {/* Logout */}
       <div className="p-4 border-t border-sidebar-border">
         <button
+          onClick={handleLogout}
           className={cn(
             "flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sidebar-muted hover:text-destructive hover:bg-destructive/10 transition-all duration-200",
             collapsed && "justify-center"
