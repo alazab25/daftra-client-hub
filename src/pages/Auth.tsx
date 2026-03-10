@@ -96,6 +96,12 @@ const Auth = () => {
               description: 'البريد الإلكتروني أو كلمة المرور غير صحيحة',
               variant: 'destructive',
             });
+          } else if (error.message.includes('captcha')) {
+            toast({
+              title: 'خطأ في الإعدادات',
+              description: 'يجب إيقاف حماية CAPTCHA من لوحة تحكم Supabase: Authentication → Settings → Bot Protection',
+              variant: 'destructive',
+            });
           } else {
             toast({
               title: 'خطأ',
