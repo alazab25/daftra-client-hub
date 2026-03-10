@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   LayoutDashboard,
@@ -15,6 +15,7 @@ import {
   Building2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/useAuth";
 
 interface AppSidebarProps {
   collapsed: boolean;
@@ -55,6 +56,13 @@ const menuItems = [
 
 const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { signOut } = useAuth();
+
+  const handleLogout = async () => {
+    await signOut();
+    navigate("/auth", { replace: true });
+  };
 
   return (
     <motion.aside
@@ -160,6 +168,7 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
       {/* Logout */}
       <div className="p-4 border-t border-sidebar-border">
         <button
+          onClick={handleLogout}
           className={cn(
             "flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sidebar-muted hover:text-destructive hover:bg-destructive/10 transition-all duration-200",
             collapsed && "justify-center"
