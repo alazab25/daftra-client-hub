@@ -7,6 +7,7 @@ import {
   FolderKanban,
   Users,
   Bell,
+  MessageCircle,
   Settings,
   HelpCircle,
   LogOut,
@@ -42,6 +43,7 @@ const menuItems = [
       { icon: FolderKanban, label: "المشاريع", path: "/projects" },
       { icon: FileText, label: "المستخلصات", path: "/documents" },
       { icon: Users, label: "العملاء", path: "/clients" },
+      { icon: MessageCircle, label: "واتساب", path: "/whatsapp" },
     ],
   },
   {
