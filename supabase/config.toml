@@ -1,1 +1,7 @@
 project_id = "hvnxhovwbvphynuxlqnj"
+
+[functions.send-whatsapp-text]
+verify_jwt = false
+
+[functions.upload-to-seafile]
+verify_jwt = false
