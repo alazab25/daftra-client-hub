@@ -2173,6 +2173,39 @@ export type Database = {
         }
         Relationships: []
       }
+      sync_logs: {
+        Row: {
+          created_at: string | null
+          error_details: Json | null
+          error_message: string | null
+          id: string
+          records_synced: number | null
+          status: string
+          sync_details: Json | null
+          sync_type: string
+        }
+        Insert: {
+          created_at?: string | null
+          error_details?: Json | null
+          error_message?: string | null
+          id?: string
+          records_synced?: number | null
+          status?: string
+          sync_details?: Json | null
+          sync_type: string
+        }
+        Update: {
+          created_at?: string | null
+          error_details?: Json | null
+          error_message?: string | null
+          id?: string
+          records_synced?: number | null
+          status?: string
+          sync_details?: Json | null
+          sync_type?: string
+        }
+        Relationships: []
+      }
       technician_schedule: {
         Row: {
           date: string
