@@ -17,6 +17,7 @@ import Notifications from "./pages/Notifications";
 import Settings from "./pages/Settings";
 import Support from "./pages/Support";
 import WhatsAppTemplates from "./pages/WhatsAppTemplates";
+import WhatsAppChat from "./pages/WhatsAppChat";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
