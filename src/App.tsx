@@ -49,6 +49,7 @@ const App = () => (
               <Route path="/notifications" element={<Notifications />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/settings/whatsapp-templates" element={<WhatsAppTemplates />} />
+              <Route path="/whatsapp" element={<WhatsAppChat />} />
               <Route path="/support" element={<Support />} />
             </Route>
             <Route path="*" element={<NotFound />} />
